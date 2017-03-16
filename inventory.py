@@ -11,8 +11,8 @@ class Products:
         category_id = input('Which Category?')
       return int(category_id)
 
-    def create_category(self, category_id, name, details):
-        category = CategoryModel(category_id=category_id, name=name, details=details)
+    def create_category(self, name, details):
+        category = CategoryModel(name=name, details=details)
         session.add(category)
         session.commit()
     
@@ -60,8 +60,8 @@ class Particulars:
             item_id = input('Which item?')
             return int(item_id)
 
-    def create_item(self, name, details, unit_cost, quantity, total, status, date_added, category_id):
-        item = ItemModel(name=name, details=details, unit_cost =unit_cost, quantity =quantity, total =total, status =status, date_added =date_added, category_id =category_id)
+    def create_item(self, name, details, unit_cost, quantity, total, status, category_id):
+        item = ItemModel(name=name, details=details, unit_cost =unit_cost, quantity =quantity, total =total, status =status, date_added =datetime.datetime.now(), category_id =category_id)
         session.add(item)
         session.commit()
 
@@ -111,5 +111,5 @@ class Particulars:
         return total 
 
 
-      
+              
 
