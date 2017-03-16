@@ -1,0 +1,29 @@
+INVENTORY MANAGEMENT APP
+#Features include:
+
+a.category table:
+  1.create category
+  2.add category deatails
+
+B.item table:
+   1.Add item
+   2.Remove item
+   3.update item
+   4.Export Inventory as a CSV file
+   5.item status
+   6. View specific items
+   7.Search item
+   8.Compute assets value
+
+ #installations:
+    1.git clone repo
+    2.create a virtualenv virtualenv venv
+    3.Install requirements pip install -r requirements
+    4.Run command to enter python start_session.py -i
+    5.Follow commands
+
+
+  Core Dependencies:
+  docopt Defines interface for command line app and automatically generates parser
+  pyfiglet Defines font for texts appearing on interface
+  colorama Makes ANSI escape character sequences (for producing colored terminal text and cursor positioning) work under MS Windows.
