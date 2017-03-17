@@ -1,7 +1,7 @@
 """
 Welcome to Inventory Management Application.
 Usage:
-	 create_category <category_id> <name>
+	 create_category <name> <details>
 	 update_category <name> 
 	 delete_category <category_id> 
 	 view_category <category_id> <name> <details>
