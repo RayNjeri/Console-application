@@ -1,6 +1,8 @@
 from IMA import CategoryModel, ItemModel
 from sqlalchemy.orm import Session
 import datetime
+import sqlite3
+import csv
 session = Session()
 
 class Products:
@@ -8,7 +10,7 @@ class Products:
       categories= sesssion.query(CategoryModel).all()
       for category in categories:
         print("{} {}".format(category.name, category.details))
-        category_id = input('Which Category?')
+        category = input('Which Category?')
       return int(category_id)
 
     def create_category(self, name, details):
@@ -19,23 +21,23 @@ class Products:
     def update_category(self, name):
        categories= session.query(CategoryModel).all()
        print('select which category to update')
-       category_id = get_Item_Category()
+       category = get_Item_Category()
        category = input('enter field to update')
-       category_id = session.query.filter_by(name= name).one()
+       category_name = session.query.filter_by(name= name).one()
        if not category:
          print('Category not found')
        else:
         new_content = input('Enter new category: ')
-        category.category_id = new_content
+        category.category_name = new_content
         session.commit()
         print('Category successfully updated.')
 
     def delete_category(self, name, details):
       categories= session.query(CategoryModel).all()
       print('select which category to Delete')
-      category_id = get_Item_Category()
+      category = get_Item_Category()
       category = input('enter field to Delete')
-      category_id = session.query.filter_by(name= name).one()
+      category_name = session.query.filter_by(name= name).one()
       if not category:
          print('Category not found')
       else:
@@ -43,13 +45,16 @@ class Products:
         session.commit()
         print('Category successfully deleted.')
 
-    def view_category(self, name,details):
+    def view_category(self, name, details):
         category = session.query(CategoryModel).filter_by(name=name).one();
         print(category)
 
-    def search_category(self, name,details):
-        category = session.query(CategoryModel).filter_by(name=name).one();
-        print(category)
+    def search(self, name, deatils):
+      try:
+        existing = dbsession.query(CategoryModel).filter_by(name=name).one()
+        return existing
+      except sqlalchemy.orm.exc.NoResultFound:
+        existing = CategoryModel()
     
 
 class Particulars:
@@ -66,25 +71,25 @@ class Particulars:
         session.commit()
 
     def update_item(self, name):
-       items= session.query(CategoryModel).all()
+       items= session.query(ItemModel).all()
        print('select which item to update')
-       item_id = get_items_Item
+       item = get_items_Item()
        item = input('enter field to update')
-       item_id = session.query.filter_by(name= name).one()
+       item = session.query.filter_by(name= name).one()
        if not item:
          print('item not found')
        else:
         new_content = input('Enter new item: ')
-        item.item_id = new_content
+        item.item_name = new_content
         session.commit()
         print('item successfully updated.')
 
     def delete_item(self, name):
         item= session.query(ItemModel).all()
         print('select which item to Delete')
-        item_id = get_items_Item
+        item = get_items_Item()
         item = input('enter field to Delete')
-        item_id = session.query.filter_by(name= name).one()
+        item = session.query.filter_by(name= name).one()
         if not item:
             print('item not found')
         else:
@@ -109,6 +114,8 @@ class Particulars:
         asset_value = item.total
         total = x*y
         return total 
+
+
 
 
               
