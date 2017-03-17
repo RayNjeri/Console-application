@@ -1,12 +1,11 @@
 """
 Welcome to Inventory Management Application.
 Usage:
-	 create_category <category_id> <name> <details>
-	 update_category <category_name> 
+	 create_category <category_id> <name>
+	 update_category <name> 
 	 delete_category <category_id> 
 	 view_category <category_id> <name> <details>
-	 search_category <category_id> <name> <details>
-
+	 search_category <name> 
 	 create_item <item_id> <name> <details> <quantity> <unit_cost> <total> <status> <date_added> <category_id>
 	 update_item <item_id>
 	 delete_item <item_id>
@@ -92,11 +91,9 @@ class Display(cmd.Cmd):
 
 	prompt = "<Enter> "
 
-class Inventory(cmd.Cmd):
-
 	@docopt_cmd
 	def do_create_category(self, args):
-		"""Usage: category_add <name> <details> <quantity>"""
+		"""Usage: create_category <name> <details>"""
 		name = args['<name>']
 		details = args['<details>']
 		
@@ -104,27 +101,28 @@ class Inventory(cmd.Cmd):
 
 	@docopt_cmd
 	def do_update_category(self,args):
-		"""Usage: update_category <category_name>"""
+		"""Usage: update_category <name> <item>"""
 		name = args['<name>']
-		product.update_category(name)
+		item = args['<item>']
+		product.update_category(name, item)
 
 	@docopt_cmd
 	def do_delete_category(self,args):
-		"""Usage: delete_category <category_id>"""
+		"""Usage: delete_category <name>"""
 		name = args['<name>']
-		product.delete_category
+		product.delete_category(name)
 
 	@docopt_cmd
 	def do_view_categery(self,args):
-		"""Usage: view_category <category_id>"""
+		"""Usage: view_category <name>"""
 		name = args['<name>']
-		product.view_category
+		product.view_category(name)
 
 	@docopt_cmd
-	def search_view_category(self,args):
-		"""Usage: search_category <category_id>"""
+	def do_search_category(self,args):
+		"""Usage: search_category <name>"""
 		name = args['<name>']
-		product.search_category
+		product.search_category(name)
 
 	@docopt_cmd
 	def do_create_item(self, args):
@@ -141,21 +139,21 @@ class Inventory(cmd.Cmd):
 
 	@docopt_cmd
 	def do_update_item(self, args):
-		"""Usage: update_item <item_name>"""
+		"""Usage: update_item <name>"""
 		name = args['<name>']
-		Particulars.update_category
+		Particulars.update_category(name)
 
 	@docopt_cmd
 	def do_delete_item(self, args):
-		"""Usage: delete_item <item_name>"""
+		"""Usage: delete_item <name>"""
 		name = args['<name>']
-		Particulars.delete_category	
+		Particulars.delete_category(name)	
 	
 	@docopt_cmd
 	def do_delete_item(self, args):
-		"""Usage: search_item <item_name>"""
+		"""Usage: search_item <name>"""
 		name = args['<name>']
-		Particulars.search_category	
+		Particulars.search_category(name)	
 
 	def do_quit(self, arg):
 		"""Quits out of Interactive Mode."""
@@ -168,13 +166,15 @@ class Inventory(cmd.Cmd):
 		exit()
 
 
-opt = docopt(__doc__, sys.argv[1:])
+# opt = docopt(__doc__, sys.argv[1:])
 
-if opt['--interactive']:
-	Display().cmdloop()
+# if opt['--interactive']:
+# 	Display().cmdloop()
 
-print(opt)
-	
+# print(opt)
+Display().cmdloop()
+print(opt)	
+
 
 
 
