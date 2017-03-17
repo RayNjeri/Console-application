@@ -166,12 +166,7 @@ class Display(cmd.Cmd):
 		exit()
 
 
-# opt = docopt(__doc__, sys.argv[1:])
 
-# if opt['--interactive']:
-# 	Display().cmdloop()
-
-# print(opt)
 Display().cmdloop()
 print(opt)	
 
