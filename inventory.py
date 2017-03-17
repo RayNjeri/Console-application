@@ -7,54 +7,57 @@ session = Session()
 
 class Products:
     def get_Item_Category(self):
-      categories= sesssion.query(CategoryModel).all()
+      categories= session.query(CategoryModel).all()
       for category in categories:
         print("{} {}".format(category.name, category.details))
-        category = input('Which Category?')
-      return int(category_id)
+      category = input('Which Category?')
+      return category
 
     def create_category(self, name, details):
         category = CategoryModel(name=name, details=details)
         session.add(category)
         session.commit()
+        print("category successfully created")
     
-    def update_category(self, name):
-       categories= session.query(CategoryModel).all()
-       print('select which category to update')
-       category = get_Item_Category()
-       category = input('enter field to update')
-       category_name = session.query.filter_by(name= name).one()
-       if not category:
-         print('Category not found')
-       else:
-        new_content = input('Enter new category: ')
-        category.category_name = new_content
-        session.commit()
-        print('Category successfully updated.')
+    def update_category(self, name, item):
 
-    def delete_category(self, name, details):
-      categories= session.query(CategoryModel).all()
-      print('select which category to Delete')
-      category = get_Item_Category()
-      category = input('enter field to Delete')
-      category_name = session.query.filter_by(name= name).one()
-      if not category:
-         print('Category not found')
-      else:
-        category.delete_category
+       category= session.query(CategoryModel).filter_by(name = name).first()
+       if category:
+        category.name = name
+        category.details = item
+        session.commit()
+        print('Category successfully updated.') 
+       else:
+          print('Category not found')
+  
+        
+    def delete_category(self, name):
+      category = session.query(CategoryModel).filter_by(name= name).first()
+      if category:
+        session.delete(category)
         session.commit()
         print('Category successfully deleted.')
+      else:
+          print("Category not found")
 
-    def view_category(self, name, details):
+    def view_category(self, name):
         category = session.query(CategoryModel).filter_by(name=name).one();
-        print(category)
+        if category:
+            print(category.details)
+        else:
+            print("Category does not exist")
 
-    def search(self, name, deatils):
+    def search_category(self, name):
       try:
-        existing = dbsession.query(CategoryModel).filter_by(name=name).one()
-        return existing
-      except sqlalchemy.orm.exc.NoResultFound:
-        existing = CategoryModel()
+
+         category = session.query(CategoryModel).filter(CategoryModel.name.like('%' + name + '%'))
+         if category:
+            for category in category:
+                print(category.name)
+         else:
+            print("Category not found")
+      except Exception as e:
+        print(str(e))
     
 
 class Particulars:
@@ -71,39 +74,45 @@ class Particulars:
         session.commit()
 
     def update_item(self, name):
-       items= session.query(ItemModel).all()
-       print('select which item to update')
-       item = get_items_Item()
-       item = input('enter field to update')
-       item = session.query.filter_by(name= name).one()
-       if not item:
-         print('item not found')
-       else:
-        new_content = input('Enter new item: ')
-        item.item_name = new_content
+      item = session.query(ItemModel).filter_by(name = name).first()
+      if item:
+        item.name = name
         session.commit()
-        print('item successfully updated.')
+        print('item successfully updated.') 
+      else:
+        print('item not found')
+       
 
     def delete_item(self, name):
-        item= session.query(ItemModel).all()
-        print('select which item to Delete')
-        item = get_items_Item()
-        item = input('enter field to Delete')
-        item = session.query.filter_by(name= name).one()
-        if not item:
-            print('item not found')
-        else:
-            item.delete_item
-            session.commit()
-            print('item successfully deleted.')
+       item = session.query(ItemModel).filter_by(name= name).first()
+       if item:
+        session.delete(item)
+        session.commit()
+        print('item successfully deleted.')
+       else:
+        print("item not found")
 
-    def view_item(self, name,details, unit_cost,quantity, total,status,date_added):
-        item = session.query(ItemModel).filter_by(name=name).one();
-        print(item)
+    def view_item(self, name):
+       category = session.query(ItemModel).filter_by(name=name).one();
+       if item:
+        print(item.details)
+       else:
+        print("Category does not exist")
+        
 
     def search_item(self, name):
-        item = session.query(ItemModel).filter_by(name=name).one();
-        print(item)
+       try:
+
+         category = session.query(ItemModel).filter(ItemModel.name.like('%' + name + '%'))
+         if item:
+            for item in item:
+                print(item.name)
+         else:
+            print("item not found")
+         except Exception as e:
+         print(str(e))
+    
+        
      
     def asset_value(self, quantity, unit_cost):
         items= sesssion.query(CategoryModel).all()
