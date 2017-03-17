@@ -109,7 +109,8 @@ class Particulars:
                 print(item.name)
          else:
             print("item not found")
-         except Exception as e:
+
+       except Exception as e:
          print(str(e))
     
         
