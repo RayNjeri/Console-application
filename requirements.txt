@@ -12,5 +12,5 @@ SQLAlchemy==1.1.6
 termcolor==1.1.0
 urllib3==1.20
 virtualenv==15.1.0
-Werkzeug==0.12
+Werkzeug==0.15.3
 xlwt==1.2.0
